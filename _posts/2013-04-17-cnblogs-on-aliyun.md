@@ -129,7 +129,7 @@ RDS的问题：
 9、出问题后的解决速度，比如虚机迁移的速度。  
 
 悲了个剧的，在写此文的这个下午，我也遇到阿里云lb返回的502错误：  
-![](/images/cnblogs-aliyun.jpg)  
+![](/images/cnblogs_aliyun.jpg)  
 以及不止一次遇到503错误："Service Unavailable...HTTP Error 503. The service is unavailable."
 
 迁移速度，阿里云5~15min
