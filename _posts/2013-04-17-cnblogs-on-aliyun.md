@@ -132,4 +132,25 @@ RDS的问题：
 ![](/images/cnblogs_aliyun.jpg)  
 以及不止一次遇到503错误："Service Unavailable...HTTP Error 503. The service is unavailable."
 
-迁移速度，阿里云5~15min
+###国内云计算公司
+
+下面很多内容直接引自Fenng的[微评国内云计算平台](http://www.douban.com/note/211794388/)。  
+
+0、大佬：[Amazon EC2](http://aws.amazon.com/cn/ec2/)和[Google GAE](https://developers.google.com/appengine/)  
+[这里](http://tea.tisiwi.com/news/357)有对二者的盛赞，还指出了阿里云等的问题（磁盘IO太弱）。  
+*这个链接很有料，另有这个[链接zhihu](http://www.zhihu.com/question/19807050/answer/13769902)。*  
+1、[阿里云](http://www.aliyun.com/)  
+阿里战略级支持力度。以 Amazon 云计算平台为师，开发人员不少，但内部团队相对混乱动荡。对开发者友好程度一般。产品主要由万网销售，价格几乎是国内最贵，服务响应一般，云市场捆绑的软件多数都是关系户。  
+2、[盛大云](http://www.grandcloud.cn/)  
+不确定是否目前是盛大战略级支持。以 Amazon 云计算平台为师，开发人员目前偏少，内部团队相对动荡。对开发者友好程度一般。产品由盛大自行销售，价格合适，入手使用较为容易，服务响应较好。期待盛大能做后续投入，并且继续改进产品体验。  
+3、[新浪SAE](http://sae.sina.com.cn/)  
+目前不是新浪战略级支持，起码听不到曹会计的念叨。**几乎是目前国内最好的PaaS平台**，开发人员目前偏少，团队相对稳定。对开发者友好相对较好。价格合适，入手使用较为容易，服务响应较好，口碑不错。  
+4、[百度BAE](http://developer.baidu.com/bae)（还有一个“[百度云](http://yun.baidu.com/cloud/home)”...）  
+跟SAE类似，也是PasS。目前是百度「概念」上战略级支持，较为特别的是，还支持Java环境，看起来，以后可能要面向密集计算，不过稳定性还需改进，内部团队规模不知。对开发者友好程度一般。  
+5、功能型云服务(垂直领域)：  
+[又拍云存储](https://www.upyun.com/)，“轻松拥有你的图片服务器集群”。  
+[七牛](http://www.qiniutek.com/)，“专注云存储”。  
+6、其他只知道名字的：  
+[万网云](http://open.www.net.cn/)，和阿里云是啥关系？“现在两者已经整合了。以前，简单说就是：万网擅长市场销售部分，阿里云给万网部署了一套，万网拿出来卖了。当然一个大集团下面，啥事都有，哈哈。现在貌似已经大整合了。”（[ref](http://www.douban.com/note/211794388/?cid=31501696)）  
+
+待添加...
