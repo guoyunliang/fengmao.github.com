@@ -1,9 +1,5 @@
-My notes and diary.
+这里是我的博客 & 记录本
 
-2012-09-18  站点不能更新。解决办法：
-  1）认为更新过于频繁，被github阻止 --naive
-  2）认为github pages策略改变，分支需从master改为gh-pages --naive
-  3）认为是模板文件出错，于是尝试了好几个其他人的站点模板，失败 --naive
-  4）本地安装jekyll（由于私人防火墙和国域防火墙，全手动下载安装），本地生成站点验证，发现根因是"highlight"写错为"hightight" --SUCCESS!
+https:xanpeng.github.io 是一个非常优秀的站点，上面的内容很棒。本博客借用其布局。
 
-2012-07-09  use theme created by (https://github.com/lzyy/lzyy.github.com).
+2012-07-09  use theme created by (https:xanpeng.github.io).
