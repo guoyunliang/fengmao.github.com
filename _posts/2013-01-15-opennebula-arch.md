@@ -77,7 +77,7 @@ ONE的web server是sunstone，启动之后，便可以通过http://localhost:986
 
 1. 选中虚机，点击“save”按钮；
 1. js找到执行的是VM.stop；
-1. @client.call(VM_METHODS[:vm.action], "stop", ...);
+1. @client.call(VM_METHODS(:vm.action), "stop", ...);
 1. (local xmlrpc call)
 1. xmlrpc server，VirtualMachineAction::request_execute();
 1. DispatchManager::stop();
@@ -91,9 +91,9 @@ ONE的web server是sunstone，启动之后，便可以通过http://localhost:986
 1. vmm.save_action();
 1. vmd.save();
 1. write_drv()写nebula_mad_pipe;
-1. MadListener从pipe的另一端ne_mad_pipe[0]取，然后execlp(executable)，执行one_vmm_exec;
+1. MadListener从pipe的另一端ne_mad_pipe(0)取，然后execlp(executable)，执行one_vmm_exec;
 1. one_vmm_exec.rb;
 1. do_action@OpenNebulaDriver.rb;
 1. RemoteCommand.run();
-1. 将/var/remotes/vmm/kvm/save脚本传到host上，并执行；
-1. 执行结果大致原路返回；
+1. 将/var/remotes/vmm/kvm/save脚本传到host上，并执行;
+1. 执行结果大致原路返回;
