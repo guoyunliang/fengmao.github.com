@@ -1,4 +1,9 @@
 markdown: rdiscount
 pygments: true
+<<<<<<< HEAD
 title: fenmgao
 baseurl: http://fengmao.github.io
+=======
+title: fengmao
+baseurl: http:/fengmao.github.io
+>>>>>>> c8f312618b02a88966891a21bc3aedf936a7d78e
