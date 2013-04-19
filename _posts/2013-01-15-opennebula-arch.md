@@ -73,27 +73,26 @@ ONE的web server是sunstone，启动之后，便可以通过http://localhost:986
 1、它使用了很多脚本，但是对脚本执行做了非常精细的控制。  
 2、代码流程很绕，不知是否绝对必要...  
 
-虚拟机save的流程大致是：  
-
-1. 选中虚机，点击“save”按钮；
-1. js找到执行的是VM.stop；
-1. @client.call(VM_METHODS(:vm.action), "stop", ...);
-1. (local xmlrpc call)
-1. xmlrpc server，VirtualMachineAction::request_execute();
-1. DispatchManager::stop();
-1. LifeCycleManager::trigger(stop);
-1. ActionManager::trigger(stop);
-1. (ActionRequest放入am的队列actions中...)
-1. ActionListener从队列里取，这里实际上执行子类LifeCycleMananger::do_action(stop);
-1. vmm.trigger(VirtualMachineManager::SAVE); => 这里是一个stop->save的转换！
-1. (ActionRequest放入am的队列actions中...)
-1. ActionListener的子类vmm.do_action(save);
-1. vmm.save_action();
-1. vmd.save();
-1. write_drv()写nebula_mad_pipe;
-1. MadListener从pipe的另一端ne_mad_pipe(0)取，然后execlp(executable)，执行one_vmm_exec;
-1. one_vmm_exec.rb;
-1. do_action@OpenNebulaDriver.rb;
-1. RemoteCommand.run();
-1. 将/var/remotes/vmm/kvm/save脚本传到host上，并执行;
-1. 执行结果大致原路返回;
+虚拟机save的流程大致是（脑补结果，很可能不精确）：  
+1、选中虚机，点击“save”按钮；  
+2、js找到执行的是VM.stop；  
+3、@client.call(VM_METHODS(:vm.action), "stop", ...);  
+4、(local xmlrpc call)  
+5、xmlrpc server，VirtualMachineAction::request_execute();  
+6、DispatchManager::stop();  
+7、LifeCycleManager::trigger(stop);  
+8、ActionManager::trigger(stop);  
+9、(ActionRequest放入am的队列actions中...)  
+10、ActionListener从队列里取，这里实际上执行子类LifeCycleMananger::do_action(stop);  
+11、vmm.trigger(VirtualMachineManager::SAVE); => 这里是一个stop->save的转换！  
+12、(ActionRequest放入am的队列actions中...)  
+13、ActionListener的子类vmm.do_action(save);  
+14、vmm.save_action();  
+15、vmd.save();  
+16、write_drv()写nebula_mad_pipe;  
+17、MadListener从pipe的另一端ne_mad_pipe(0)取，然后execlp(executable)，执行one_vmm_exec;  
+18、one_vmm_exec.rb;  
+19、do_action@OpenNebulaDriver.rb;  
+20、RemoteCommand.run();  
+21、将/var/remotes/vmm/kvm/save脚本传到host上，并执行;  
+22、执行结果大致原路返回;  
