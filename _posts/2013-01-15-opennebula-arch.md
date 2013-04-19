@@ -7,8 +7,8 @@ tags: opennebula cloud ruby java occi ssh
 
 OpenNebula是当下流行的云计算平台之一。  
 我一直在想，这种云计算平台的核心技术是什么？现在看来，其核心功能是提供统一的、单一的操作界面，现在的人越来越懒，利用这个界面，便可以管理物理集群，管理所有虚拟资源。  
-因此，OpenNebula等没有核心技术，它们采用的虚拟化技术（如KVM、XEN、LXC）都是现成的。  
-因此，OpenNebula等的竞争力在于其框架是否简单、可靠、易扩展。  
+因此，OpenNebula等**没有核心技术**，它们采用的虚拟化技术（如KVM、XEN、LXC）都是现成的。  
+或者说，OpenNebula等的核心技术/竞争力在于其框架是否简单、可靠、易扩展。  
 
 总概OpenNebula，它在管理节点上维护各种数据库表，并利用ssh执行远端命令。  
 
@@ -64,5 +64,36 @@ ONE的web server是sunstone，启动之后，便可以通过http://localhost:986
 
 两个有意思的点：  
 1、ONE是个大系统，它调用很多其他的功能，很多不是通过API调用的，而是通过脚本创建新进程。于是需要进程间通信，对此ONE使用pipe，参考上图。  
-2、如果要为ONE增加功能，需要修改sunstone ruby脚本。另一条路是创建一个新的Server，Java版的Server可轻易找到很多。  
+2、在OpenNebula页面上增加新功能，后台可以选择增强sunstone+oned，也可以另起一个Server（比如JettyServer）。  
 
+###virsh save的流程
+
+如果你用的是OpenNebula的不同版本，对你来说上面的流程图是不准确的，但仍然有用，比如用作理解的线索。  
+我又走了一遍虚拟机save操作的流程，现在对OpenNebula的理解是：  
+1、它使用了很多脚本，但是对脚本执行做了非常精细的控制。  
+2、代码流程很绕，不知是否绝对必要...  
+
+虚拟机save的流程大致是：  
+
+1. 选中虚机，点击“save”按钮；
+1. js找到执行的是VM.stop；
+1. @client.call(VM_METHODS[:vm.action], "stop", ...);
+1. (local xmlrpc call)
+1. xmlrpc server，VirtualMachineAction::request_execute();
+1. DispatchManager::stop();
+1. LifeCycleManager::trigger(stop);
+1. ActionManager::trigger(stop);
+1. (ActionRequest放入am的队列actions中...)
+1. ActionListener从队列里取，这里实际上执行子类LifeCycleMananger::do_action(stop);
+1. vmm.trigger(VirtualMachineManager::SAVE); => 这里是一个stop->save的转换！
+1. (ActionRequest放入am的队列actions中...)
+1. ActionListener的子类vmm.do_action(save);
+1. vmm.save_action();
+1. vmd.save();
+1. write_drv()写nebula_mad_pipe;
+1. MadListener从pipe的另一端ne_mad_pipe[0]取，然后execlp(executable)，执行one_vmm_exec;
+1. one_vmm_exec.rb;
+1. do_action@OpenNebulaDriver.rb;
+1. RemoteCommand.run();
+1. 将/var/remotes/vmm/kvm/save脚本传到host上，并执行；
+1. 执行结果大致原路返回；
