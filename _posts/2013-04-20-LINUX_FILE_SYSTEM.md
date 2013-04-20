@@ -7,8 +7,7 @@ category: linux
 ![alt main](/images/codes/123.png "MAIN")
 
 <p> insert code </p>
-
-```
+<pre><code>
 void sign_handler(int sig)
 {
   switch (sig) {
@@ -34,4 +33,4 @@ void sign_handler(int sig)
     case 43: 
   }
 }
-```
+</code></pre>
