@@ -6,7 +6,7 @@ category: linux
 <p>  just test, insert code. </p>
 ![alt main](/images/codes/123.png "MAIN")
 
-<script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js?lang=cc&skin=sunburst"></script>
+<script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js?lang=cc&skin=sons-of-obsidian"></script>
 <pre class="prettyprint">
 int main ()
 {
