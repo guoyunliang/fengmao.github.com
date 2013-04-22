@@ -6,31 +6,20 @@ category: linux
 <p>  just test, insert code. </p>
 ![alt main](/images/codes/123.png "MAIN")
 
-<p> insert code </p>
-<pre><code>
-void sign_handler(int sig)
+
+<link href="/css/google-code-prettify/desert.css" rel="styleshhet" type="text/css" media="all">
+<script type="text/javascript" src="/css/google-code-prettify/prettify.js"> </script>
+$(function() {
+    window.prettyPrint && prettyPrint();
+    });
+
+<pre class="prettyPrint">
+int main ()
 {
-  switch (sig) {
-    case SIGTERM:
-    case SIGINT:
-      if (tair_server != NULL) {
-        log_info("will stop tairserver");
-        tair_server->stop();
-      }   
-      break;
-    case 40: 
-      TBSYS_LOGGER.checkFile();
-      break;
-    case 41: 
-    case 42: 
-      if (sig==41) {
-        TBSYS_LOGGER._level ++; 
-      } else {
-        TBSYS_LOGGER._level --; 
-      }   
-      log_error("TBSYS_LOGGER._level: %d", TBSYS_LOGGER._level);
-      break;
-    case 43: 
+  int a = 100;
+  for (int i = 0; i < 100; ++i)
+  {
+    cout << i << endl;
   }
 }
-</code></pre>
+</pre>
