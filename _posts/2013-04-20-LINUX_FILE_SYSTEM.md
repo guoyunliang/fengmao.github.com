@@ -5,15 +5,9 @@ category: linux
 ---
 <p>  just test, insert code. </p>
 ![alt main](/images/codes/123.png "MAIN")
-
-
-<link href="/css/google-code-prettify/desert.css" rel="styleshhet" type="text/css" media="all">
-<script type="text/javascript" src="/css/google-code-prettify/prettify.js"> </script>
-$(function() {
-    window.prettyPrint && prettyPrint();
-    });
-
-<pre class="prettyPrint">
+<script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js?lang=css&skin=sunburst"></script>
+<?prettify?>
+<pre class="prettyprint">
 int main ()
 {
   int a = 100;
