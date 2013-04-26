@@ -6,7 +6,9 @@ category: linux
 
 
 文档材料
+
 [Understanding CPU Caching and Performance](http://www.hesit.be/files/info/2/1101153620-Caching.pdf) 
+
 [Cache associativity](http://csillustrated.berkeley.edu/PDFs/handouts/cache-3-associativity-handout.pdf) 
 
 上述两篇材料写的挺好的，值得阅读。
