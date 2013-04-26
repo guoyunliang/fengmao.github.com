@@ -4,8 +4,7 @@ layout: post
 category: linux
 ---
 
-
-文档材料
+[CPU Cache]
 
 [Understanding CPU Caching and Performance](http://www.hesit.be/files/info/2/1101153620-Caching.pdf) 
 
