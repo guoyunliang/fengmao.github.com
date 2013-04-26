@@ -12,7 +12,7 @@ category: linux
 ###CPU为什么需要Cache
 这是个众所周知的问题，我还是将作者的图片贴上来，相当直观的。
 
-![alt CPU Clock](/images/2013-04-26/cpu_clock.png)
+<p align=center><img src=/images/2013-04-26/cpu_clock.png width=300></p>
 
 ###存储器层级结构
 我们知道，在计算机体系结构中，存储器是分级的。不同level的单位bit造价，访问速度以及容量都是不同的。这里简单总结下每个level的特征：
