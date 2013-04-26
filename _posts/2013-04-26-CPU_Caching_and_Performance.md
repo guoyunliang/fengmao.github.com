@@ -11,6 +11,7 @@ category: linux
 
 ###CPU为什么需要Cache
 这是个众所周知的问题，我还是将作者的图片贴上来，相当直观的。
+
 ![alt CPU Clock](/images/cpu_clock.png)
 
 ###存储器层级结构
