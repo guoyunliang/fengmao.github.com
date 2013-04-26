@@ -5,9 +5,12 @@ category: linux
 ---
 
 
+文档材料
+[Understanding CPU Caching and Performance](http://www.hesit.be/files/info/2/1101153620-Caching.pdf) 
+[Cache associativity](http://csillustrated.berkeley.edu/PDFs/handouts/cache-3-associativity-handout.pdf) 
 
-[Understanding CPU Caching and Performance](http://www.hesit.be/files/info/2/1101153620-Caching.pdf) 这篇文章写的挺好的，值得阅读。
-文章把以下几个问题用图文并茂的方式说明的很清楚, 这里借鉴作者的图片。</p>
+上述两篇材料写的挺好的，值得阅读。
+文章把以下几个问题用图文并茂的方式说明的很清楚, 这里借鉴作者的图片.
 
 ###CPU为什么需要Cache
 这是个众所周知的问题，我还是将作者的图片贴上来，相当直观的。
