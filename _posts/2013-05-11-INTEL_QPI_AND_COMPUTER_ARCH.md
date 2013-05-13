@@ -20,7 +20,7 @@ category: linux
 </p>
 
 <p>
-CPU(s)通过FSB与北桥连接，FSB的带宽与数据传输能力就会成为系统的瓶颈，特别是内存的带宽持续增大的情况下，这种瓶颈就越发明显。Intel发布QPI总线用于CPU与CPU，CPU与内存，CPU与shipset之间的连接总线。QPI是高速point-to-point总线，据Intel公开的资料，QPI总线可提供96G/s的带宽，完全超越了目前内存能够提供的带宽。
+CPU(s)通过FSB与北桥连接，FSB的带宽与数据传输能力就会成为系统的瓶颈，特别是内存的带宽持续增大的情况下，这种瓶颈就越发明显。Intel发布QPI总线用于CPU与CPU，CPU与内存，CPU与shipset之间的连接总线。QPI是高速point-to-point总线，据Intel公开的资料，QPI总线可提供96G/s的带宽，完全超越了目前内存能够提供的带宽。传统架构中，CPU之间传递数据是需要占用FSB的带宽, 这显然不利于多核CPU并行工作。
 </p>
 
 <p>
@@ -42,6 +42,7 @@ CPU(s)通过FSB与北桥连接，FSB的带宽与数据传输能力就会成为�
 
 从图中我们可以看出，CPU集成了MC，并且CPU与Input/Output Hub(IOH)直接通过QPI连接，取代了FSB总线。
 </p>
+
 <p>
 接下来，我们看看双CPU的情况。与FSB总线不同的是，多个CPU不是通过共享总线的方式与shipset连接的，而是各自使用独立的总线（QPI）与shipset连接，每个CPU拥有各自的内存。值得注意的是，2个CPU直接也是通过QPI总线连接的，满足CPU之间的数据交换需求。
 
