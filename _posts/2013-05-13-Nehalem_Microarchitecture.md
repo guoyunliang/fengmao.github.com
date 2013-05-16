@@ -101,7 +101,17 @@ Nehalem 配备了指令无序执行引擎。EE的首要目标是保证指令执�
 <p align=center><img src=/images/2013-05-13/execution_engine.png width=800> </p>
 
 **Register Rename and Allocation Unit(RRAU)**
+RRAU为macro-ops准备资源，分配port, 以及其他准备工作:
 
++ 分配资源:
+  <ul>
+  <li></li>
+  <li></li>
+  <li></li>
+  </ul>
++ 将macro-op绑定到特点port;
++ 重命名寄存器，消除伪数据相关性, 将Architected Registers映射到Unarchitected Register上，释放Architected Registers。
++ 为macro-op提供立即数或者寄存器数据。
 **Reorder Buffer(ROB)**
 
 **Unified Reservation Station(URS)**
