@@ -129,3 +129,17 @@ MOB确保macro-op执行完成后的结果以正确的顺序，正确的内容写
 
 Nehalem的EU是全pipeline方式工作的，每一个EU输出结果最多不超过1个cycle的延迟。EU从ROB或者寄存器获取数据。当某些macro-op等待数据的时候，可以让其他已经就绪的macro-op执行，提高整体效率。
 
+###Nehalem的Cache
+
+*Cache Hierarchy*
+
+Nehalem Processor集成内存控制器，直接与DDR3内存连接。其内存与Core内部的寄存器直接有3级Cache，其中L1 Cache，L2 Cache是每个core私有的，L3Cache是多个core共享的。这里简单描述下每一级Cache吧：
+
++ L1 Cache, L1 Cache 由独立的instruction cache和data cache构成，均32KB, 单通道，block size 为64B. Instruction Cache是4-way set associative Cache， Data Cache是8-way set associate Cache。从L1 Cache读取数据需要4 clocks, 写入需要1 clock.
++ L2 Cache，256KB，8-way set associative, 可存储数据或者指令；block size 为64B. 读取数据需要10 clocks, 数据写入高一级存储器采用write-back策略。
++ L3 Cache, 16-way set associative, 8MB。不同于L1，L2 Cache，L3 Cache是包含式Cache(inclusive cache), 访问延迟35~40+ clocks。
+
+这里需要注意的是，L3 Cache是Inclusive方式的，这样设计的好处是减少core之间不必要的数据探测（实现cache一致性协议相关）。如果某个block不在L3 Cache，那么该数据肯定不在core的L1，L2 Cache中。
+
+*Memory Access Enhancements*
+
