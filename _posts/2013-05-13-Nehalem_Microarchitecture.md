@@ -7,7 +7,7 @@ category: linux
 ###文献来源
 
 
-[Nehalem, wiki](http://en.wikipedia.org/wiki/Nehalem_(microarchitecture)) 
+[Nehalem, wiki](http://en.wikipedia.org/wiki/Nehalem_(microarchitecture) ) 
 
 [Inside Nehalem](http://www.realworldtech.com/nehalem/) 
 
