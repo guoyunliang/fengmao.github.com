@@ -59,11 +59,11 @@ Nehalem架构的一个关键组件，称为前端流水线(Front-End Pipeline, F
 
 <p align=center><img src=/images/2013-05-13/front_end_pipeline.png width=706> </p>
 
-**Instruction Fetch Unit**
+**Instruction Fetch Unit(IFU)**
 
 IFU从L1 Instruction Cache 或者 指令预取缓存(Instruction pre-fetch buffers)中读取指令，每个cycle读取16byte的指令。
 
-**Branch-Prediction Unit**
+**Branch-Prediction Unit(BPU)**
 <p>
 对于采用流水线方式执行的CPU来说，分支预测技术带来的好处是，如果分支预测正确(至少50%的正确率), pipeline无需等待，直接执行，即便预测错了，就取消pipeline上正在执行的任务。在预测错误的情况下，和没有分支预测功能是一样的，那添加一个分支预测单元显然是非常合理的事情了。
 
@@ -90,7 +90,9 @@ BPU采用以下几种技术来提高预测准确率(这3条机制，我目前还
 
 Pre-Coder每个cycle能够处理6条指令，并将预处理的指令放入Instruction Queue(IQ), 等待decoder来读取。 IQ是一个指令缓存，起承接作用，作为Precoder的输出目的地，作为decoder的输入源。
 
-**Instruction Decoding Unit**
+**Instruction Decoding Unit(IDU)**
+
+IDU拥有4个decoder, 其中3个只能够解码simple instruction, 1个用户解码complex instruction。IDU的输入是macro-instructions, 输出是macro-operations, 输出目的缓存为Instruction Decoder Queue(IDQ)。IDU拥有循环检测功能。
 
 
 
