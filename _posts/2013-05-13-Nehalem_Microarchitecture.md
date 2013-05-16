@@ -48,6 +48,8 @@ Nehalem Processor采用pipeline的方式执行微操作。CPU 每次读取一批
 
 我的重点是搞清楚每一个core的内部情况，先上一张core的逻辑框图，如下所示：
 
+<p align=center><img src=/images/2013-05-13/nehalem_core_arch.png width=650> </p>
+
 接下来依次分析，上述逻辑框图中的每一个区域，试图高清楚core的工作状况。
 
 ###Nehalem Core Pipelie
