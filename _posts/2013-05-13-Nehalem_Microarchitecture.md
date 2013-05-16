@@ -105,9 +105,9 @@ RRAU为macro-ops准备资源，分配port, 以及其他准备工作:
 
 + 分配资源:
   <ul>
-  <li></li>
-  <li></li>
-  <li></li>
+  <li>an entry of ROB</li>
+  <li>an entry of RS</li>
+  <li>a load/store buffer</li>
   </ul>
 + 将macro-op绑定到特点port;
 + 重命名寄存器，消除伪数据相关性, 将Architected Registers映射到Unarchitected Register上，释放Architected Registers。
