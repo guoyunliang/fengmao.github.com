@@ -52,8 +52,12 @@ Nehalem Processor采用pipeline的方式执行微操作。CPU 每次读取一批
 
 接下来依次分析，上述逻辑框图中的每一个区域，试图高清楚core的工作状况。
 
-###Nehalem Core Pipelie
+###Nehalem Instruction Decode & Macrocode
 
+Nehalem架构的一个关键组件，称为前端流水线(Front-End Pipeline, FEP)。该流水线用于微指令解码为微操作, 采用in-order方式工作，一个cycle能够decode 4个微指令。FEP整个工作需要其他组件协同完成。这些组件包括指令预取单元(Instruction Fetch Unit, IFU), 分支预测单元(Branch-Prediction Unit, BPU), 预解码器（Instruction Length Decoder, ILD), Instruction Queue, 指令解码器(Instruction Decoding Unit)，以及一些基础存储组件TLB，L1 Cache等。接下来依次认识这些组件，了解其功能。
+
+
+<p align=center><img src=/images/2013-05-13/front_end_pipeline.png width=706> </p>
 
 
 
