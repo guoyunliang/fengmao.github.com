@@ -98,7 +98,7 @@ IDU拥有4个decoder, 其中3个只能够解码simple instruction, 1个用户解
 
 Nehalem 配备了指令无序执行引擎。EE的首要目标是保证指令执行结果正确的情况下，最大化单位cycle内执行的macro-ops数量，以及最大化通过FU的指令流。Nehalem的EE有6个port, 最多支持128 条macro-ops上流水线，每个时钟周期有4条macro-ops会产生结果。macro-ops执行产生的结果采用write-back策略。Nehalem的EE由Register Rename and Allocation Unit(RRAU), Reorder Buffer(ROB), Unified Reservation Station(URS), Memory Order Buffer(MOB)和Execution Units and Operand Forwarding Network（EUOFN)构成。EE的逻辑框图如下所示。
 
-<p align=center><img src=/images/2013-05-13/execution_engine.png width=850> </p>
+<p align=center><img src=/images/2013-05-13/execution_engine.png width=800> </p>
 
 **Register Rename and Allocation Unit(RRAU)**
 
