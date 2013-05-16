@@ -112,11 +112,20 @@ RRAU为macro-ops准备资源，分配port, 以及其他准备工作:
 + 将macro-op绑定到特点port;
 + 重命名寄存器，消除伪数据相关性, 将Architected Registers映射到Unarchitected Register上，释放Architected Registers。
 + 为macro-op提供立即数或者寄存器数据。
-**Reorder Buffer(ROB)**
 
 **Unified Reservation Station(URS)**
 
+URS是一个拥有36entry的Queue，用于存储操作数还没有到位的macro-ops。由于操作数没有到位，不能上流水线执行。也就是说，在任何时候，不超过36macro-ops等待进入流水线执行。每一个时钟周期里，URS的调度器会最多选择6条macro-ops放入相应的port，进入流水线，并且最多有4条指令可以讲结果写入RS或者写入ROB。当macro-op的操作数准备好后，根据各个port的情况，选择合适的port，将macro-op投入到流水线。
+
+**Reorder Buffer(ROB)**
+
+ROB是EE的一个关键组件，其主要功能是保证out-of-order的方式执行指令产生的结果正确性。也就是说，ROB保证了乱序执行指令后产生的结果与非乱序方式产生的结果一样。Nehalem的ROB 有128entry, 因此可以最多支持128条maro-ops进入流水线。
+
 **Memory Order Buffer(MOB)**
 
-**Exe    cution Units and Operand Forwarding Network（EUOFN)**
+MOB确保macro-op执行完成后的结果以正确的顺序，正确的内容写入存储器。
+
+**Execution Units and Operand Forwarding Network（EUOFN)**
+
+Nehalem的EU是全pipeline方式工作的，每一个EU输出结果最多不超过1个cycle的延迟。EU从ROB或者寄存器获取数据。当某些macro-op等待数据的时候，可以让其他已经就绪的macro-op执行，提高整体效率。
 
