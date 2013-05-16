@@ -145,3 +145,4 @@ Nehalem Processor集成内存控制器，直接与DDR3内存连接。其内存�
 
 **Memory Access Enhancements**
 
+为增强Nehalem Core访问数据的性能，每个Core的L1 Cache与寄存器之间部署了load/store buffer 来减少数据到L1 Cache的延迟，作为一个临时数据存放点。为了保证数据的一致性，当出现中断或异常，I/O指令，LOCK指令，BINIT操作（？），SFENCE/MFENCE instruction的时候，store buffer的数据必须写入L1 Cache。
