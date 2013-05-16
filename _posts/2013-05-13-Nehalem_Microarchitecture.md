@@ -74,7 +74,23 @@ Nehalem的BPU可以为以下几种指令作分支预测：
 + indirect calls/jumps;
 + conditional branches;
 
-BPU采用以下几种技术来提高预测准确率：
+BPU采用以下几种技术来提高预测准确率(这3条机制，我目前还不明白）：
+
++ 增加Branch Target Buffer的容量（这里为什么能够增加分支预测准确率，我不明白啊）
++ 使用Return Stack Buffer来预测RET指令；
++ 使用Front-End Queue。
+
+**Instruction Length Decoder(ILD, or Pre-Decoder)**
+
+我更愿意接受TLD的名称为Pre-Decoder, 因为它的作用就是对指令作预处理工作，其输出为Decoder的输入。主要作如下工作：
+
++ 确定指令size;
++ 解码指令的前缀;
++ 确定某些指令的一些熟悉，例如该指令是一条分支预测指令;
+
+Pre-Coder每个cycle能够处理6条指令，并将预处理的指令放入Instruction Queue(IQ), 等待decoder来读取。 IQ是一个指令缓存，起承接作用，作为Precoder的输出目的地，作为decoder的输入源。
+
+**Instruction Decoding Unit**
 
 
 
