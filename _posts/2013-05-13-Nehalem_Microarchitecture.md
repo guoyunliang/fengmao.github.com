@@ -59,6 +59,20 @@ Nehalem架构的一个关键组件，称为前端流水线(Front-End Pipeline, F
 
 <p align=center><img src=/images/2013-05-13/front_end_pipeline.png width=706> </p>
 
+**Instruction Fetch Unit**
+
+IFU从L1 Instruction Cache 或者 指令预取缓存(Instruction pre-fetch buffers)中读取指令，每个cycle读取16byte的指令。
+
+**Branch-Prediction Unit**
+
+对于采用流水线方式执行的CPU来说，分支预测技术带来的好处是，如果分支预测正确(至少50%的正确率), pipeline无需等待，直接执行，即便预测错了，就取消pipeline上正在执行的任务。在预测错误的情况下，和没有分支预测功能是一样的，那添加一个分支预测单元显然是非常合理的事情了。
+
+Nehalem的BPU可以为以下几种指令作分支预测：
++ direct alls/jumps;
++ indirect calls/jumps;
++ conditional branches;
+
+BPU采用以下几种技术来提高预测准确率：
 
 
 
