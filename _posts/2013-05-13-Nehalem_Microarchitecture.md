@@ -165,7 +165,7 @@ MESI协议本身也可解决多sockets之间的数据一致性问题。Intel为�
 
 这里有还有2个问题需要补充：
 
-+ 包含式L3 Cache对cache一致性问题的影响？
-+ 每个block的核心确认位如何是如何被使用的？
+<ul><li>包含式L3 Cache对cache一致性问题的影响？</li>
+<li>每个block的核心确认位如何是如何被使用的？</li></ul>
 
 
