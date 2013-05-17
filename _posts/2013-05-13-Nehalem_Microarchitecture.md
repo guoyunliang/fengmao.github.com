@@ -180,3 +180,5 @@ Nehalem架构中，processor被划分为core和uncore两个区域。Global Queue
 + Load Queue, 32-entry, 缓存从L3 Cache或者Memory 中读取的block;
 + QPI Queue，12-entry，缓存透过QPI输入或输出的block;
 
+
+（未完待续）
