@@ -149,6 +149,14 @@ Nehalem Processor集成内存控制器，直接与DDR3内存连接。其内存�
 
 **Cache一致性**
 
-Nehalem Cache 采用MSEIF协议来维护socket内部各个core的local cache ，主存 和 其他socket的Cache之间的数据一致性。通过MSEIF协议，任何一个processor的任何一个core所看到的主存中的数据是一致的。
+Nehalem Cache 采用MESIF协议来维护socket内部各个core的local cache ，主存 和 其他socket的Cache之间的数据一致性。通过MSEIF协议，任何一个processor的任何一个core所看到的主存中的数据是一致的。
 
-> MSEI协议是经典的Cache 一致性协议，属于write-invalidate, snoopy类型的。write-invalidate是指当处于Share状态的block被修改时，其他的copy全部转变为Invalid状态。各个core通过监听MC总线来确定自己cache里的某个处于Share状态的block被修改。
+> MESI协议是经典的Cache 一致性协议，属于write-invalidate, snoopy类型的。write-invalidate是指当处于Share状态的block被修改时，其他的copy全部转变为Invalid状态。各个core通过监听MC总线来确定自己cache里的某个处于Share状态的block被修改。
+
+MESIF协议属于write-invalidate, snoopy(但是具备directory-based协议的熟悉）类型一致性协议。其directory-based属性体现在，每个block有C位数（C与core的数量相等），每一位用于标记该block是否在对应的core的cache中。初始状态，Cache中不存在任何block, 那么cache中的block属于Invalid状态。当有core读取该block数据的时候，会出现read miss。接着数据从内存读取，填充到对应的多级Cache, 这个过程成为cache-line fill。首次被某个core读到cache的block，其状态为Exclusive。若该block被多个core读取到local cache, 该block的状态变为Share。若处于Share状态的block被某个core修改，该core会通过一个Request for Ownership动作，使该block在其他core local cache中全部失效。很明显，处于Exclusive状态的block是不会触发Requst-for-Ownership动作的。
+
+Nehalem processor可以监听其他processor写主存事件。通过监听这一事件，processor调整local cache中block的状态，来确保processor的local cache 与主存，processor 与 processor之间的数据一致性。
+
+Nehalem Core监听到其他processor试图去写一个block, 而该block处于该core的local cache中，并且处于Share状态，那么该core直接失效掉该block。下一次将会读取新的数据。若某个block处于Modify状态, 且没有write-back（显然在该block在其他core中处于Invalid状态），而其他core到内存中去读这个block(此时，内存中的block已是脏数据），拥有block Modify 状态的core发出一个信号给请求block的core, 并将modify的block发送给它。这个信号会被MC监听到，并且将数据写入到主存。此时，block处于Share状态。
+
+Nehalem Cache采用LRU算法淘汰block。LRU在软硬领域都可见呀。
