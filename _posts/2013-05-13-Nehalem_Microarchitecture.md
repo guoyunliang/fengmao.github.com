@@ -129,7 +129,7 @@ MOB确保macro-op执行完成后的结果以正确的顺序，正确的内容写
 
 Nehalem的EU是全pipeline方式工作的，每一个EU输出结果最多不超过1个cycle的延迟。EU从ROB或者寄存器获取数据。当某些macro-op等待数据的时候，可以让其他已经就绪的macro-op执行，提高整体效率。
 
-###Nehalem的Cache
+###Nehalem的Cache 子系统
 
 **Cache Hierarchy**
 
