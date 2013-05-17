@@ -168,4 +168,15 @@ MESI协议本身也可解决多sockets之间的数据一致性问题。Intel为�
 <ul><li>包含式L3 Cache对cache一致性问题的影响？</li>
 <li>每个block的核心确认位如何是如何被使用的？</li></ul>
 
+**Global Queue**
+
+Nehalem架构中，processor被划分为core和uncore两个区域。Global Queue是处于uncore区域的一个队列，该队列的目的是暂存数据的。Global Queue位于L2 Cache 与 L3 Cache之间的区域，见下图。
+
+<p align=center><img src=/images/2013-05-13/nehalem_on_chip_memory_hierarchy.png width=636> </p>
+
+实际上, GQ由3个子队列组成：
+
++ Write Queue, 16-entry, 缓存由local core发出的block；
++ Load Queue, 32-entry, 缓存从L3 Cache或者Memory 中读取的block;
++ QPI Queue，12-entry，缓存透过QPI输入或输出的block;
 
