@@ -36,7 +36,7 @@ html {
 body {
 	-moz-background-size:100% auto;
 	background-attachment:fixed;
-	background: #666 url(../images/bg.jpg);
+	/*background: #666 url(../images/bg.jpg);*/
 	background-position:center top;
 	/*font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;*/
 	font-family:"Microsoft Yahei","SimHei";
