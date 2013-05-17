@@ -146,3 +146,9 @@ Nehalem Processor集成内存控制器，直接与DDR3内存连接。其内存�
 **Memory Access Enhancements**
 
 为增强Nehalem Core访问数据的性能，每个Core的L1 Cache与寄存器之间部署了load/store buffer 来减少数据到L1 Cache的延迟，作为一个临时数据存放点。为了保证数据的一致性，当出现中断或异常，I/O指令，LOCK指令，BINIT操作（？），SFENCE/MFENCE instruction的时候，store buffer的数据必须写入L1 Cache。
+
+**Cache一致性**
+
+Nehalem Cache 采用MSEIF协议来维护socket内部各个core的local cache ，主存 和 其他socket的Cache之间的数据一致性。通过MSEIF协议，任何一个processor的任何一个core所看到的主存中的数据是一致的。
+
+> MSEI协议是经典的Cache 一致性协议，属于write-invalidate, snoopy类型的。write-invalidate是指当处于Share状态的block被修改时，其他的copy全部转变为Invalid状态。各个core通过监听MC总线来确定自己cache里的某个处于Share状态的block被修改。
