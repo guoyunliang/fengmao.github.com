@@ -159,4 +159,10 @@ Nehalem processor可以监听其他processor写主存事件。通过监听这一
 
 Nehalem Core监听到其他processor试图去写一个block, 而该block处于该core的local cache中，并且处于Share状态，那么该core直接失效掉该block。下一次将会读取新的数据。若某个block处于Modify状态, 且没有write-back（显然在该block在其他core中处于Invalid状态），而其他core到内存中去读这个block(此时，内存中的block已是脏数据），拥有block Modify 状态的core发出一个信号给请求block的core, 并将modify的block发送给它。这个信号会被MC监听到，并且将数据写入到主存。此时，block处于Share状态。
 
-Nehalem Cache采用LRU算法淘汰block。LRU在软硬领域都可见呀。
+> Nehalem Cache采用LRU算法淘汰block。LRU在软硬领域都可见呀。
+
+MESI协议本身也可解决多sockets之间的数据一致性问题。Intel为了减少不必要的数据传输(减少内存带宽)，对处于Share状态的block作来区分。一个block在多个local cache中共享，该block在唯一一个cache中标记为Forward状态，其它的都标记为Shared状态。并规定只有Forward的block可以发送给block请求这者。
+
+这里有还有2个问题需要补充：
++ 包含式L3 Cache对cache一致性问题的影响？
++ 每个block的核心确认位如何是如何被使用的？
