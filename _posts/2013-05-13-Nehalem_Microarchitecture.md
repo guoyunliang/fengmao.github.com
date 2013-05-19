@@ -194,5 +194,5 @@ Nehalem架构中，processor被划分为core和uncore两个区域。Global Queue
 </p>
 
 <p>
-TLB1 则没有对数据和指令作划分。
+TLB1没有对数据和指令作划分。
 </p>
