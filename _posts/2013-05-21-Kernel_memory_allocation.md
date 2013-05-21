@@ -6,6 +6,8 @@ category: scripts
 
 无意翻看SystemTap官网，看到好多systemtap script的例子。其中，有些例子还是相当有价值的。
 
+原文链接在这里：[Kernel Memory Allocation](http://sourceware.org/systemtap/wiki/WSKmemCacheAlloc) 
+
 ###Problem
 
 根据proc/slabinfo中提供的信息，如何知道那些进程在疯狂的吃系统内存？下面这个脚本将提供很多有用的信息。
