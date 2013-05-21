@@ -10,7 +10,9 @@ category: scripts
 
 通过/proc/slabinfo 可以看到某些slab增长异常，即将耗尽系统内存。如何找出吃掉内存的真凶？
 ###Scripts
-`
+
+<script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js?lang=cc&skin=sunburst"></script>
+<pre class="prettyprint">
 #This script displays the number of given slab allocations and the backtraces leading up to it. 
 
 global slab = @1
@@ -35,5 +37,5 @@ probe end {
                 printf("\n-------------------------------------------------------\n\n")
         }
 }
-`
+</pre>
 ###Output
