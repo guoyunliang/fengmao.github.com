@@ -3,9 +3,9 @@ title:   [systemtap] Probe Kernel Memory Allocation
 layout: post
 category: scripts
 ---
-
+<p>
 偶然的机会看到stackoverflow上的一个问题，后面列了一个stap脚本，感觉有点意思。这段脚本来着于systemtap邮件组的一个邮件，作者Ross Mikosh。
-
+</p>
 ###Problem
 
 通过/proc/slabinfo 可以看到某些slab增长异常，即将耗尽系统内存。如何找出吃掉内存的真凶？
