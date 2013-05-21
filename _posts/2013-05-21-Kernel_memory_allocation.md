@@ -1,8 +1,9 @@
 ---
-title:   [systemtap] Probe Kernel Memory Allocation
+title:  Probe Kernel Memory Allocation
 layout: post
 category: scripts
 ---
+
 <p>
 偶然的机会看到stackoverflow上的一个问题，后面列了一个stap脚本，感觉有点意思。这段脚本来着于systemtap邮件组的一个邮件，作者Ross Mikosh。
 </p>
