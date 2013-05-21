@@ -1,5 +1,5 @@
 ---
-title:   CPU Caching and Performance
+title:   Probe Kernel Memory Allocation
 layout: post
 category: scripts
 ---
