@@ -1,5 +1,5 @@
 ---
-title:   Probe Kernel Memory Allocation
+title:   [systemtap] Probe Kernel Memory Allocation
 layout: post
 category: scripts
 ---
