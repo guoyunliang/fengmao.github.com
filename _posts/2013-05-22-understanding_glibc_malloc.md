@@ -1,7 +1,7 @@
 ---
 title:  Understanding the heap by breaking it
 layout: post
-category: scripts
+category: linux
 ---
 
 ###说明
