@@ -11,12 +11,15 @@ category: code
 
 ###代码
 在KV系统中，字符串比较函数经常用到，其性能还是非常重要的。看看TokuDB提供的几种字符串比较函数吧。
+
 ####版本1
+
+<p>
 <pre class="prettyprint">
 int toku_keycompare (bytevec key1, ITEMLEN key1len, bytevec key2, ITEMLEN key2len) {
   if (key1len==key2len) {
     return memcmp(key1,key2,key1len);
-  } else if (key1len<key2len) {
+  } else if (key1len < key2len) {
     int r = memcmp(key1,key2,key1len);
     if (r<=0) return -1; /* If the keys are the same up to 1's length, then return -1, since key1 is shorter than key2. */
     else return 1;
@@ -25,6 +28,7 @@ int toku_keycompare (bytevec key1, ITEMLEN key1len, bytevec key2, ITEMLEN key2le
   }
 }
 </pre>
+</p>
 
 这个版本比较简单，使用memcmp函数，并且使用了递归的算法。逻辑清晰，没有什么好说的。
 
