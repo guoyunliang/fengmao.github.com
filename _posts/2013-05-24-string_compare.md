@@ -12,7 +12,7 @@ category: code
 ###代码
 在KV系统中，字符串比较函数经常用到，其性能还是非常重要的。看看TokuDB提供的几种字符串比较函数吧。
 
-####版本1
+**版本1**
 
 <p>
 <pre class="prettyprint">
@@ -38,7 +38,7 @@ int toku_keycompare (bytevec key1, ITEMLEN key1len, bytevec key2, ITEMLEN key2le
 
 这个版本比较简单，使用memcmp函数，并且使用了递归的算法。逻辑清晰，没有什么好说的。
 
-####版本2
+**版本2**
 
 <pre class="prettyprint">
 int toku_keycompare (bytevec key1, ITEMLEN key1len, bytevec key2, ITEMLEN key2len)
@@ -66,7 +66,7 @@ int toku_keycompare (bytevec key1, ITEMLEN key1len, bytevec key2, ITEMLEN key2le
 
 相比版本1，版本2去掉了递归调用，全部使用memcmp实现。
 
-####版本3
+**版本3**
 
 <pre class="prettyprint">
 int toku_keycompare (bytevec key1, ITEMLEN key1len, bytevec key2, ITEMLEN key2len)
@@ -89,7 +89,7 @@ int toku_keycompare (bytevec key1, ITEMLEN key1len, bytevec key2, ITEMLEN key2le
 
 这个版本进一步优化，去掉对memcmp调用，直接循环比较每一个字符。
 
-####版本4
+**版本4**
 
 <pre class="prettyprint">
 int toku_keycompare (bytevec key1, ITEMLEN key1len, bytevec key2, ITEMLEN key2len)
@@ -122,7 +122,7 @@ int toku_keycompare (bytevec key1, ITEMLEN key1len, bytevec key2, ITEMLEN key2le
 
 我简单的写了个对比实验，产生10,000,000个随机字符串，长度为64。分别运行上述4中字符串比较函数10,000,000次，求得总的运行时间，并且除以总的调用次数，得出每次调用比较函数需要的时间（单位ms)。我的测试机器的配置为Intel(R) Xeon(R) CPU E5520  @ 2.27GHz, 16 cores, 内存24G，g++版本 > 4.0.0。测试结果如下：
 
-<p align=center><img src=/images/2013-05-24/r.png width=438></p>
+<p align=center><img src=/images/2013-05-24/r.jpg width=438></p>
 
 上述数据表示，每个版本执行10,000,000后，求得一次调用的平均时间，单位是ms。
 通过上述看出，字符串比较函数优化还是很明显的，版本3和4明显比版本2和1要节约时间，同时版本4用时最少。
