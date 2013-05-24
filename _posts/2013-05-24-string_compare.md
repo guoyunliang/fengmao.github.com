@@ -16,14 +16,20 @@ category: code
 
 <p>
 <pre class="prettyprint">
-int toku_keycompare (bytevec key1, ITEMLEN key1len, bytevec key2, ITEMLEN key2len) {
-  if (key1len==key2len) {
+int toku_keycompare (bytevec key1, ITEMLEN key1len, bytevec key2, ITEMLEN key2len)
+{
+  if (key1len==key2len)
+  {
     return memcmp(key1,key2,key1len);
-  } else if (key1len < key2len) {
+  } 
+  else if (key1len < key2len)
+  {
     int r = memcmp(key1,key2,key1len);
     if (r<=0) return -1; /* If the keys are the same up to 1's length, then return -1, since key1 is shorter than key2. */
     else return 1;
-  } else {
+  }
+  else
+  {
     return -toku_keycompare(key2,key2len,key1,key1len);
   }
 }
@@ -35,15 +41,21 @@ int toku_keycompare (bytevec key1, ITEMLEN key1len, bytevec key2, ITEMLEN key2le
 ####版本2
 
 <pre class="prettyprint">
-int toku_keycompare (bytevec key1, ITEMLEN key1len, bytevec key2, ITEMLEN key2len) {
-  if (key1len==key2len) {
+int toku_keycompare (bytevec key1, ITEMLEN key1len, bytevec key2, ITEMLEN key2len)
+{
+  if (key1len==key2len)
+  {
     return memcmp(key1,key2,key1len);
-  } else if (key1len<key2len) {
+  }
+  else if (key1len < key2len)
+  {
     int r = memcmp(key1,key2,key1len);
     if (r<=0) return -1; 
     //If the keys are the same up to 1's length, then return -1, since key1 is shorter than key2.
     else return 1;
-  } else {
+  }
+  else
+  {
     int r = memcmp(key1,key2,key2len);
     if (r>=0) return 1; 
     // If the keys are the same up to 2's length, then return 1 since key1 is longer than key2.
@@ -57,12 +69,15 @@ int toku_keycompare (bytevec key1, ITEMLEN key1len, bytevec key2, ITEMLEN key2le
 ####版本3
 
 <pre class="prettyprint">
-int toku_keycompare (bytevec key1, ITEMLEN key1len, bytevec key2, ITEMLEN key2len) {
+int toku_keycompare (bytevec key1, ITEMLEN key1len, bytevec key2, ITEMLEN key2len)
+{
   int comparelen = key1len<key2len ? key1len : key2len;
   const unsigned char *k1;
   const unsigned char *k2;
-  for (k1=key1, k2=key2; comparelen>0; k1++, k2++, comparelen--) {
-    if (*k1 != *k2) {
+  for (k1=key1, k2=key2; comparelen>0; k1++, k2++, comparelen--)
+  {
+    if (*k1 != *k2)
+    {
       return (int)*k1-(int)*k2;
     }
   }
@@ -77,22 +92,21 @@ int toku_keycompare (bytevec key1, ITEMLEN key1len, bytevec key2, ITEMLEN key2le
 ####版本4
 
 <pre class="prettyprint">
-int toku_keycompare (bytevec key1, ITEMLEN key1len, bytevec key2, ITEMLEN key2len) {
+int toku_keycompare (bytevec key1, ITEMLEN key1len, bytevec key2, ITEMLEN key2len)
+{
   int comparelen = key1len<key2len ? key1len : key2len;
   const unsigned char *k1;
   const unsigned char *k2;
-  for (CAST_FROM_VOIDP(k1, key1), CAST_FROM_VOIDP(k2, key2);
-      comparelen>4;
-      k1+=4, k2+=4, comparelen-=4) {
+  for (CAST_FROM_VOIDP(k1, key1), CAST_FROM_VOIDP(k2, key2); comparelen > 4; k1+=4, k2+=4, comparelen-=4)
+  {
     { int v1=k1[0], v2=k2[0]; if (v1!=v2) return v1-v2; }
     { int v1=k1[1], v2=k2[1]; if (v1!=v2) return v1-v2; }
     { int v1=k1[2], v2=k2[2]; if (v1!=v2) return v1-v2; }
     { int v1=k1[3], v2=k2[3]; if (v1!=v2) return v1-v2; }
   }
-  for (;
-      comparelen>0;
-      k1++, k2++, comparelen--) {
-    if (*k1 != *k2) {
+  for (;  comparelen>0; k1++, k2++, comparelen--) {
+    if (*k1 != *k2) 
+    {
       return (int)*k1-(int)*k2;
     }
   }
