@@ -39,7 +39,7 @@ int toku_keycompare (bytevec key1, ITEMLEN key1len, bytevec key2, ITEMLEN key2le
 这个版本比较简单，使用memcmp函数，并且使用了递归的算法。逻辑清晰，没有什么好说的。
 </p>
 
-**版本2**
+**版本1**
 
 <p>
 <pre class="prettyprint">
@@ -70,7 +70,7 @@ int toku_keycompare (bytevec key1, ITEMLEN key1len, bytevec key2, ITEMLEN key2le
 </p>
 
 
-**版本3**
+**版本1**
 
 <p>
 <pre class="prettyprint">
@@ -96,7 +96,7 @@ int toku_keycompare (bytevec key1, ITEMLEN key1len, bytevec key2, ITEMLEN key2le
 </p>
 
 
-**版本4**
+**版本1**
 
 <p>
 <pre class="prettyprint">
