@@ -101,7 +101,7 @@ int toku_keycompare (bytevec key1, ITEMLEN key1len, bytevec key2, ITEMLEN key2le
   int comparelen = key1len<key2len ? key1len : key2len;
   const unsigned char *k1;
   const unsigned char *k2;
-
+  //依次读取4字节，并比较
   for (CAST_FROM_VOIDP(k1, key1), CAST_FROM_VOIDP(k2, key2); comparelen > 4; k1+=4, k2+=4, comparelen-=4)
   {
     { int v1=k1[0], v2=k2[0]; if (v1!=v2) return v1-v2; }
