@@ -69,11 +69,12 @@ int toku_keycompare (bytevec key1, ITEMLEN key1len, bytevec key2, ITEMLEN key2le
 ####版本3
 
 <pre class="prettyprint">
-int toku_keycompare (bytevec key1, ITEMLEN key1len, bytevec key2, ITEMLEN key2len)
+int toku_keycompare (bytevec key1, ITEMLEN key1len, bytevec key2, ITEMLEN key2len) 
 {
   int comparelen = key1len<key2len ? key1len : key2len;
   const unsigned char *k1;
   const unsigned char *k2;
+  
   for (k1=key1, k2=key2; comparelen>0; k1++, k2++, comparelen--)
   {
     if (*k1 != *k2)
@@ -81,6 +82,7 @@ int toku_keycompare (bytevec key1, ITEMLEN key1len, bytevec key2, ITEMLEN key2le
       return (int)*k1-(int)*k2;
     }
   }
+
   if (key1len<key2len) return -1;
   if (key1len>key2len) return 1;
   return 0;
@@ -98,6 +100,7 @@ int toku_keycompare (bytevec key1, ITEMLEN key1len, bytevec key2, ITEMLEN key2le
   int comparelen = key1len<key2len ? key1len : key2len;
   const unsigned char *k1;
   const unsigned char *k2;
+
   for (CAST_FROM_VOIDP(k1, key1), CAST_FROM_VOIDP(k2, key2); comparelen > 4; k1+=4, k2+=4, comparelen-=4)
   {
     { int v1=k1[0], v2=k2[0]; if (v1!=v2) return v1-v2; }
@@ -105,7 +108,9 @@ int toku_keycompare (bytevec key1, ITEMLEN key1len, bytevec key2, ITEMLEN key2le
     { int v1=k1[2], v2=k2[2]; if (v1!=v2) return v1-v2; }
     { int v1=k1[3], v2=k2[3]; if (v1!=v2) return v1-v2; }
   }
-  for (;  comparelen>0; k1++, k2++, comparelen--) {
+
+  for (;  comparelen>0; k1++, k2++, comparelen--)
+  {
     if (*k1 != *k2) 
     {
       return (int)*k1-(int)*k2;
