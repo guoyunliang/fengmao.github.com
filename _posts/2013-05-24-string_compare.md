@@ -68,10 +68,11 @@ int toku_keycompare (bytevec key1, ITEMLEN key1len, bytevec key2, ITEMLEN key2le
 
 ####版本3
 
+<code>
 <pre class="prettyprint">
 int toku_keycompare (bytevec key1, ITEMLEN key1len, bytevec key2, ITEMLEN key2len) 
 {
-  int comparelen = key1len<key2len ? key1len : key2len;
+  int comparelen = key1len < key2len ? key1len : key2len;
   const unsigned char *k1;
   const unsigned char *k2;
   
@@ -87,7 +88,7 @@ int toku_keycompare (bytevec key1, ITEMLEN key1len, bytevec key2, ITEMLEN key2le
   if (key1len>key2len) return 1;
   return 0;
 }
-</pre>
+</pre></code>
 
 这个版本进一步优化，去掉对memcmp调用，直接循环比较每一个字符。
 
