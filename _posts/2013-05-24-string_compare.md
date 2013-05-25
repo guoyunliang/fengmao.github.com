@@ -66,7 +66,7 @@ int toku_keycompare (bytevec key1, ITEMLEN key1len, bytevec key2, ITEMLEN key2le
 相比版本1，版本2去掉了递归调用，全部使用memcmp实现。
 
 
-###版本3
+####版本3
 
 <pre class="prettyprint">
 int toku_keycompare (bytevec key1, ITEMLEN key1len, bytevec key2, ITEMLEN key2len)
