@@ -66,3 +66,14 @@ Overview:
 >    ii) set writer to true
 >    iii) increment the semaphore
 >    iv) return success
+
+**To lock a write rwlock**
+Overview:
+>1) Acquire the mutex
+>2) If the list is not empty or the reader count is nonzero
+>   a) initialize semaphore
+>   b) add to end of list (with rw="write")
+>   c) release mutex
+>   d) wait on the semaphore
+>   e) return success when the semaphore releases
+>3) Otherwise set writer=true, release mutex and return success.
