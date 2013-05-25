@@ -34,12 +34,14 @@ int toku_keycompare (bytevec key1, ITEMLEN key1len, bytevec key2, ITEMLEN key2le
   }
 }
 </pre>
-</p>
+
 
 这个版本比较简单，使用memcmp函数，并且使用了递归的算法。逻辑清晰，没有什么好说的。
+</p>
 
 **版本2**
 
+<p>
 <pre class="prettyprint">
 int toku_keycompare (bytevec key1, ITEMLEN key1len, bytevec key2, ITEMLEN key2len)
 {
@@ -65,9 +67,12 @@ int toku_keycompare (bytevec key1, ITEMLEN key1len, bytevec key2, ITEMLEN key2le
 </pre>
 
 相比版本1，版本2去掉了递归调用，全部使用memcmp实现。
+</p>
+
 
 **版本3**
 
+<p>
 <pre class="prettyprint">
 int toku_keycompare (bytevec key1, ITEMLEN key1len, bytevec key2, ITEMLEN key2len)
 {
@@ -88,9 +93,12 @@ int toku_keycompare (bytevec key1, ITEMLEN key1len, bytevec key2, ITEMLEN key2le
 </pre>
 
 这个版本进一步优化，去掉对memcmp调用，直接循环比较每一个字符。
+</p>
+
 
 **版本4**
 
+<p>
 <pre class="prettyprint">
 int toku_keycompare (bytevec key1, ITEMLEN key1len, bytevec key2, ITEMLEN key2len)
 {
@@ -117,6 +125,8 @@ int toku_keycompare (bytevec key1, ITEMLEN key1len, bytevec key2, ITEMLEN key2le
 </pre>
 
 版本3每次比较一个字符，版本4在其基础上再次优化，每次比较4个字节。想想为什么要这样优化吧？
+</p>
+
 
 ###实验结果
 
