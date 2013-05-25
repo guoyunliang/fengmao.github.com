@@ -52,13 +52,15 @@ Overview:
 >
 >3) If the count is still positive or the list is empty then return success
 >
->4) Otherwise (count==zero and the list is nonempty):
->  a) If the first element of the list is a reader:
->    i) while the first element is a reader:
+>4) Otherwise (count==zero and the list is nonempty)
+>
+>  a) If the first element of the list is a reader
+>    i) while the first element is a reader
 >      x) pop the list
 >      y) increment the reader count
 >      z) increment the semaphore (releasing it for some waiter)
 >   ii) return success
+>
 >  b) Else if the first element is a writer
 >    i) pop the list
 >    ii) set writer to true
