@@ -20,4 +20,47 @@ category: code
 >  4) We want to guarantee nonstarvation (many rwlock implementations can starve the writers because another reader
 >    comes * along before all the other readers have unlocked.)
 
-主要是考虑到pthread_rwlock的性能问题，防止写者饥饿, 以及对这些关键代码作指令级的优化。这种方式还是值得借鉴的，特别是后端服务系统，对于一些调用非常平凡的代码，作一定的优化，是非常值得的。这些调用非常平凡的代码，作哪怕是很少量的优化，那总提上代理的性能提升也是很客观的(可能有不同意见）。
+主要是考虑到pthread_rwlock的性能问题，防止写者饥饿, 以及对这些关键代码作指令级的优化。这种方式还是值得借鉴的，特别是后端服务系统，对于一些调用非常平凡的代码，作一定的优化，是非常值得的。这些调用非常平凡的代码，作哪怕是很少量的优化，那总体上带来的性能提升也是很客观的(可能有不同意见）。
+
+看看toku_rwlock的数据结构：
++ a long mutex field as spin lock;
++ a reader counter;
++ a written boolean;
++ a singly linked list of semaphores for waiting requesters.
+
+###How it works ?
+
+**To lock a read rwlock**
+Toku源代码文件中的Overview:
+>1) Acquire the mutex.
+>
+>2) If the linked list is not empty or the writer boolean is true
+>then
+>a) initialize your semaphore (to 0),
+>b) add your list element to the end of the list (with  rw="read")
+>c) release the mutex
+>d) wait on the semaphore
+>e) when the semaphore release, return success.
+>
+>3) Otherwise increment the reader count, release the mutex, and return success.
+
+**To unlock a read rwlock**
+Overview:
+>1) Acquire mutex
+>
+>2) Decrement reader count
+>
+>3) If the count is still positive or the list is empty then return success
+>
+>4) Otherwise (count==zero and the list is nonempty):
+>  a) If the first element of the list is a reader:
+>    i) while the first element is a reader:
+>      x) pop the list
+>      y) increment the reader count
+>      z) increment the semaphore (releasing it for some waiter)
+>   ii) return success
+>  b) Else if the first element is a writer
+>    i) pop the list
+>    ii) set writer to true
+>    iii) increment the semaphore
+>    iv) return success
