@@ -3,6 +3,8 @@ title:  试用systemtap小记
 layout: post
 category: scripts
 ---
+<script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js?lang=cc&skin=sunburst"></script>
+
 
 我是从褚霸的blog上知道systemtap的，随即被这个工具吸引住了。仔细把玩了一阵子，爱不释手~~ 
 
@@ -21,7 +23,18 @@ systemtap 安装就忽略了，网上资料很多，折腾折腾，总会搞定�
 request 出队列处，给客户端发送response处添加了probe。
 
 接下来，就是写systemtap脚本了。根据每一个probe处的情况，将相关变量打处理（暴力了，可以选择需要的变量打印出来）。在不杀
-tair proxy进程的情况下，就可以获取各个probe处的相关变量值。
+tair proxy进程的情况下，就可以获取各个probe处的相关变量值。简单帖一个probe handler的代码吧：
+<pre class="prettyprint">
+  probe process("/home/fengmao.pj/tair_install/sbin/tair_proxy").function("do_reply") {
+    printf ("do reply request, time: %d, opcode: %d, opaque: %d\n",
+        gettimeofday_us(),
+        @var("ctx")->header_->opcode,
+        @var("ctx")->header_->opaque);
+    if (@var("ctx")->header_->opcode == 10) {
+      printf ("contex: %s \n", @var("ctx")$$);
+    }
+  }
+</pre>
 
 接下来，我在发送response处的probe 打印出变量发现: request对象的ipacket 和 opacket都为null. 找到我们代码中显示将这值赋值为null
 的地方也加一个probe, 并且在这个probe的handler里将调用堆栈打印出来，这样我就能知道谁将其赋值为null了。
@@ -32,7 +45,7 @@ tair proxy进程的情况下，就可以获取各个probe处的相关变量值�
 根据请情况返回easy_ok或者easy_again。这个过程是handler线程执行的，接着在另外一个线程中执行上述异步请求的callback。在callback中将从ds拿到的值，
 创建response挂在request->opacket上。接着是一个回包过程，检查队首request是否可回包，回包，直到对首request不可回包为止。
 而有种协议，没有是同步完成的，也就是说在handler的线程中request->opacket就不为null了。 然后handler直接向libeasy返回easy_ok，
-就变成了同步回包了。而此时request还在队列里，等待回包~~ 
+就变成了同步回包了。而此时request还在队列里，等待回包~~ BUG！！
 
 ###小结
 上述bug使用debug或者日志，可能也能找到，但是只是比较繁琐了。使用systemtap就比较方便，你可以对正在运行的系统任何一处设置监测点。
