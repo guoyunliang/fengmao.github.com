@@ -1,5 +1,5 @@
 ---
-title: systemtap 编译安装小记
+title: systemtap编译安装小记
 layout: post
 category: scripts
 ---
