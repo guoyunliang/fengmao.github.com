@@ -5,34 +5,16 @@
 		<title>fengmao</title>
 		<link rel="stylesheet" type="text/css" href="/css/style.css" />
 		<link rel="stylesheet" type="text/css" href="/css/syntax.css" />
-        <link rel="alternate" type="application/rss+xml" href="/atom.xml" />
 	</head>
-
 	<body>
 		<div id="wrapper">
 			<div id="content" class="index">
 				<div id="sidebar">
 					<ul>
-						<li>
-							<a href="/index.html">ARTICLES</a>
-							<ul>
-								<!--
-								{% for category in site.categories %}
-								<li><a href="/{{ category[0] | downcase }}.html">{{ category[0] }}({{ category | last | size }})</a></li>
-								{% endfor %}
-							
-								<li><a href="/cloud.html">CLOUD({{ site.categories.cloud | size }})</a></li>
-								<li><a href="/linux.html">LINUX({{ site.categories.linux | size }})</a></li>
-								<li><a href="/scripts.html">SCRIPTS({{ site.categories.scripts | size }})</a></li>
-								<li><a href="/code.html">CODE({{ site.categories.code | size }})</a></li>
-							
-									-->
-							</ul>
-						</li>
+						<li>	<a href="/index.html">ARTICLES</a></li>
 						<li><a href="/about.html">ABOUT</a></li>
 					</ul>
 				</div>
-
 				<div id="main">
 				{{ content }}
 				</div>
