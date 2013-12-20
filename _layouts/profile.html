@@ -19,11 +19,13 @@
 								{% for category in site.categories %}
 								<li><a href="/{{ category[0] | downcase }}.html">{{ category[0] }}({{ category | last | size }})</a></li>
 								{% endfor %}
-								-->
+							
 								<li><a href="/cloud.html">CLOUD({{ site.categories.cloud | size }})</a></li>
 								<li><a href="/linux.html">LINUX({{ site.categories.linux | size }})</a></li>
 								<li><a href="/scripts.html">SCRIPTS({{ site.categories.scripts | size }})</a></li>
 								<li><a href="/code.html">CODE({{ site.categories.code | size }})</a></li>
+							
+								-->
 							</ul>
 						</li>
 						<li><a href="/about.html">ABOUT</a></li>
