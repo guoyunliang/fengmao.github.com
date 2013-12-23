@@ -53,7 +53,7 @@ layout: profile
   [18]: http://baike.corp.taobao.com/index.php/Clusters
   [19]: http://baike.corp.taobao.com/index.php/ClustersForTest
   [20]: http://eagleeye.taobao.net:9999/
-  [21]: http://scm.taobao.net/index.htm?redirectUrl=http%3A%2F%2Fscm.taobao.net%2Fuser%2FuserIndex.htm%3FmenuId%3DZ008%26target%3DlistPackageApply.htm
+  [21]: http://scm.taobao.net/user/userIndex.htm?menuId=Z008&target=listPackageApply.htm
   [22]: https://webmail.alibaba-inc.com/alimail/
   [23]: http://aops.alibaba-inc.com/
   [24]: http://baike.corp.taobao.com/index.php/Faq
