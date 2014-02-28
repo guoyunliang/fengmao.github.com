@@ -1,10 +1,4 @@
----
-layout: profile
----
-
-##LINKS & NOTES
-
-###**常用链接**
+####**BASIC LINKS**
 - [Google][2]
 - [Gmail][3]
 - [Google Drive][4]
@@ -14,13 +8,9 @@ layout: profile
 - [Homepage][7]
 - [StackEdit][14]
 - [WIKI][15]
-- News Link
-  * [163.com][8]
-  * [sina.com][9]
-  * [youku.com][10]
 - [StackOverflow][11]
 - [Amazon][12]
-###**工作链接**
+###**WORKING DAY LINKS**
 - [Tair-Wiki][16]
 - [Taobao-Home][17]
 - [Tair Cluster Online][18]
@@ -31,7 +21,9 @@ layout: profile
 - [AOPS][23]
 - [TAIR FQA][24]
 - [Ali Monitor][25]
-
+- [TAIR-PACKAGE][26]
+- [AD-BULKWRITE][27]
+- [DIY-CHART][28]
 
 
   [2]: https://www.google.com.hk
@@ -58,3 +50,6 @@ layout: profile
   [23]: http://aops.alibaba-inc.com/
   [24]: http://baike.corp.taobao.com/index.php/Faq
   [25]: http://baike.corp.taobao.com/index.php/MonitorAddress
+  [26]: build2.corp.taobao.com:8080
+  [27]: http://ad1.plt.cm3.proxy.taobao.org/updater/updater/
+  [28]: http://www.diychart.com/
