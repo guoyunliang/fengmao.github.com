@@ -1,0 +1,263 @@
+
+<!DOCTYPE html><html><head><title>Aerospike 压测</title><meta charset='utf-8'></head><body>
+                        <div id="wmd-preview" class="preview-content"></div>
+                    <div id="wmd-preview-section-100" class="wmd-preview-section preview-content">
+
+</div><div id="wmd-preview-section-101" class="wmd-preview-section preview-content">
+
+<h2 id="aerospike-压测">Aerospike 压测</h2>
+
+<p></p>
+
+</div><div id="wmd-preview-section-102" class="wmd-preview-section preview-content">
+
+<h3 id="概述">概述</h3>
+
+<p>我大约是在Aerospike开源后1个月后开始关注它。 查看了其官方介绍，被其描述的性能数据给震撼了。 进一步了解，发现起提供的数据结构完全可以和redis媲美。 抱着好奇的心态去看看，其优点可以借鉴。说实话，其代码可读性不敢恭维。经过断断续续的查看代码，发现它确实有很多有趣的地方，值得仔细分析。趁着元旦放假，来压它一把。</p>
+
+</div><div id="wmd-preview-section-103" class="wmd-preview-section preview-content">
+
+<h3 id="压测场景">压测场景</h3>
+
+<p>由于持久化引擎代码还没有看完，今天就只压测Cache集群的场景。将Aerospike集群部署在2个测试机器上，数据保存1份，全在内存中(即Aerospike as Cache)。这是比较典型的Cache场景。</p>
+
+<p>使用YCSB来压测集群。</p>
+
+</div><div id="wmd-preview-section-104" class="wmd-preview-section preview-content">
+
+<h3 id="测试机器配置">测试机器配置</h3>
+
+<p>内存： 192G <br>
+SSD磁盘： 500G X 11 <br>
+CPU: 24cores <br>
+网卡：千兆双网卡(负载均衡)</p>
+
+</div><div id="wmd-preview-section-105" class="wmd-preview-section preview-content">
+
+<h3 id="部署方式">部署方式</h3>
+
+<p>采用源码编译的方式，将Aerospike部署在两个节点上。作为Cache集群，数据无需落在磁盘上，并且数据只存储1份。</p>
+
+<p>将压测工具YCSB部署在4个相同配置的机器上。压测节点和部署服务节点都在同一个机房。</p>
+
+</div><div id="wmd-preview-section-106" class="wmd-preview-section preview-content">
+
+<h3 id="压测数据收集">压测数据收集</h3>
+
+<p>压测数据主要有2方面，一方面来自YCSB的输出；另一方面，来自aerospike集群的monitor工具收集。将这些数据简单的整理成图表，希望能够直观的呈现压测结果。</p>
+
+<p>安装KV长度，链接数， 读写比例3个维度多次测试，并收集数据。 <br>
+将YCSB部署在4个测试机器上，每个机器上起一个YCSB instance, 并均分每个链接数。 <br>
+收集包括，server端CPU利用率，负载(3分钟平均负载)，单机OPS，YCSB输出的平均RT，Server端分别统计到的RT超过1ms，8ms和64ms的请求数的百分比。</p>
+
+</div><div id="wmd-preview-section-107" class="wmd-preview-section preview-content">
+
+<h4 id="读写比01压测">读写比0:1压测</h4>
+
+<table>
+<thead>
+<tr>
+  <th align="left">KV长度(bytes)</th>
+  <th align="center">链接数</th>
+  <th align="right">CPU利用率</th>
+  <th align="right">负载(3min)</th>
+  <th align="right">单机OPS</th>
+  <th align="right">读写比例</th>
+  <th align="right">平均RT(us)</th>
+  <th align="right">RT&gt;1ms</th>
+  <th align="right">RT&gt;8ms</th>
+  <th align="right">RT&gt;64ms</th>
+</tr>
+</thead>
+<tbody><tr>
+  <td align="left">64</td>
+  <td align="center">0.5K</td>
+  <td align="right">&lt;1600%</td>
+  <td align="right">&lt;12</td>
+  <td align="right">290K+</td>
+  <td align="right">0:1</td>
+  <td align="right">&lt;400</td>
+  <td align="right">&lt;0.27%</td>
+  <td align="right">0</td>
+  <td align="right">0</td>
+</tr>
+<tr>
+  <td align="left">64</td>
+  <td align="center">1K</td>
+  <td align="right">&lt;1700%</td>
+  <td align="right">&lt;15</td>
+  <td align="right">320K+</td>
+  <td align="right">0:1</td>
+  <td align="right">&lt;750</td>
+  <td align="right">&lt;2.65%</td>
+  <td align="right">0</td>
+  <td align="right">0</td>
+</tr>
+<tr>
+  <td align="left">64</td>
+  <td align="center">2K</td>
+  <td align="right">&lt;1800%</td>
+  <td align="right">&lt;18</td>
+  <td align="right">330K+</td>
+  <td align="right">0:1</td>
+  <td align="right">&lt;1000</td>
+  <td align="right">&lt;7.68%</td>
+  <td align="right">0</td>
+  <td align="right">0</td>
+</tr>
+<tr>
+  <td align="left">512</td>
+  <td align="center">0.5K</td>
+  <td align="right">&lt;1500%</td>
+  <td align="right">&lt;12</td>
+  <td align="right">280K+</td>
+  <td align="right">0:1</td>
+  <td align="right">&lt;450</td>
+  <td align="right">&lt;0.22%</td>
+  <td align="right">0</td>
+  <td align="right">0</td>
+</tr>
+<tr>
+  <td align="left">512</td>
+  <td align="center">1K</td>
+  <td align="right">&lt;1800%</td>
+  <td align="right">&lt;15</td>
+  <td align="right">300K+</td>
+  <td align="right">0:1</td>
+  <td align="right">&lt;800</td>
+  <td align="right">&lt;2.43%</td>
+  <td align="right">0</td>
+  <td align="right">0</td>
+</tr>
+<tr>
+  <td align="left">512</td>
+  <td align="center">2K</td>
+  <td align="right">&lt;1900%</td>
+  <td align="right">&lt;16</td>
+  <td align="right">320K+</td>
+  <td align="right">0:1</td>
+  <td align="right">&lt;1400</td>
+  <td align="right">&lt;14.3%</td>
+  <td align="right">0</td>
+  <td align="right">0</td>
+</tr>
+<tr>
+  <td align="left">1024</td>
+  <td align="center">0.5K</td>
+  <td align="right">&lt;1000%</td>
+  <td align="right">&lt;7</td>
+  <td align="right">190K+</td>
+  <td align="right">0:1</td>
+  <td align="right">&lt;650</td>
+  <td align="right">0</td>
+  <td align="right">0</td>
+  <td align="right">0</td>
+</tr>
+<tr>
+  <td align="left">1024</td>
+  <td align="center">1K</td>
+  <td align="right">&lt;1100%</td>
+  <td align="right">&lt;9</td>
+  <td align="right">190K+</td>
+  <td align="right">0:1</td>
+  <td align="right">&lt;1000</td>
+  <td align="right">0</td>
+  <td align="right">0</td>
+  <td align="right">0</td>
+</tr>
+</tbody></table>
+
+
+</div><div id="wmd-preview-section-108" class="wmd-preview-section preview-content">
+
+<h4 id="读写比11压测">读写比1:1压测</h4>
+
+<table>
+<thead>
+<tr>
+  <th align="left">KV长度(bytes)</th>
+  <th align="center">链接数</th>
+  <th align="right">CPU利用率</th>
+  <th align="right">负载(3min)</th>
+  <th align="right">单机OPS</th>
+  <th align="right">读写比例</th>
+  <th align="right">平均RT(us)</th>
+  <th align="right">RT&gt;1ms</th>
+  <th align="right">RT&gt;8ms</th>
+  <th align="right">RT&gt;64ms</th>
+</tr>
+</thead>
+<tbody><tr>
+  <td align="left">64</td>
+  <td align="center">0.5K</td>
+  <td align="right">&lt;1600%</td>
+  <td align="right">&lt;14</td>
+  <td align="right">350K+</td>
+  <td align="right">1:1</td>
+  <td align="right">&lt;800</td>
+  <td align="right">&lt;0.18%</td>
+  <td align="right">0</td>
+  <td align="right">0</td>
+</tr>
+<tr>
+  <td align="left">64</td>
+  <td align="center">1K</td>
+  <td align="right">&lt;1800%</td>
+  <td align="right">&lt;14</td>
+  <td align="right">360K+</td>
+  <td align="right">1:1</td>
+  <td align="right">&lt;1000</td>
+  <td align="right">&lt;1.16%</td>
+  <td align="right">0</td>
+  <td align="right">0</td>
+</tr>
+<tr>
+  <td align="left">64</td>
+  <td align="center">2K</td>
+  <td align="right">&lt;1900%</td>
+  <td align="right">&lt;14</td>
+  <td align="right">400K+</td>
+  <td align="right">1:1</td>
+  <td align="right">&lt;1000</td>
+  <td align="right">&lt;5.0%</td>
+  <td align="right">0</td>
+  <td align="right">0</td>
+</tr>
+<tr>
+  <td align="left">512</td>
+  <td align="center">0.5K</td>
+  <td align="right">&lt;1600%</td>
+  <td align="right">&lt;14</td>
+  <td align="right">320K+</td>
+  <td align="right">1:1</td>
+  <td align="right">&lt;800</td>
+  <td align="right">&lt;0.16%</td>
+  <td align="right">0</td>
+  <td align="right">0</td>
+</tr>
+<tr>
+  <td align="left">512</td>
+  <td align="center">1K</td>
+  <td align="right">&lt;1800%</td>
+  <td align="right">&lt;13</td>
+  <td align="right">360K+</td>
+  <td align="right">1:1</td>
+  <td align="right">&lt;1000</td>
+  <td align="right">&lt;1.31%</td>
+  <td align="right">0</td>
+  <td align="right">0</td>
+</tr>
+<tr>
+  <td align="left">1024</td>
+  <td align="center">0.5K</td>
+  <td align="right">&lt;1400%</td>
+  <td align="right">&lt;12</td>
+  <td align="right">300K+</td>
+  <td align="right">1:1</td>
+  <td align="right">&lt;800</td>
+  <td align="right">&lt;0.06%</td>
+  <td align="right">0</td>
+  <td align="right">0</td>
+</tr>
+</tbody></table>
+</div><div id="wmd-preview-section-footnotes" class="preview-content"></div></body></html>
